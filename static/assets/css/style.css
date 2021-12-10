@@ -32,10 +32,13 @@ img { max-width: 100%; }
 .section-description { margin-top: 60px; padding-bottom: 10px; }
 
 .section-description p { margin-top: 20px; padding: 0 120px; }
+.section-description h2 { color: #fff; }
+.section-description a:hover,
+.section-description a:focus { color: #fff; color: rgba(255, 255, 255, 0.8); }
+
 .section-container-image-bg .section-description p { opacity: 0.8; }
 
 .section-bottom-button { padding-top: 60px; }
-
 
 /***** Divider *****/
 
