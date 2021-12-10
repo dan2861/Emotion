@@ -13,16 +13,16 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,600">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-        <link rel="stylesheet" href="assets/css/animate.css">
-        <link rel="stylesheet" href="assets/css/style.css">
-        <link rel="stylesheet" href="assets/css/media-queries.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/animate.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/media-queries.css') }}">
 
         <!-- Favicon and touch icons -->
-        <link rel="shortcut icon" href="assets/ico/favicon.png">
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='assets/ico/favicon.png') }}">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url_for('static', filename='assets/ico/apple-touch-icon-144-precomposed.png') }}">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ url_for('static', filename='assets/ico/apple-touch-icon-114-precomposed.png') }}">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ url_for('static', filename='assets/ico/apple-touch-icon-72-precomposed.png') }}">
+        <link rel="apple-touch-icon-precomposed" href="{{ url_for('static', filename='assets/ico/apple-touch-icon-57-precomposed.png') }}">
 
     </head>
 
@@ -31,7 +31,7 @@
 		<!-- Top menu -->
 		<nav class="navbar navbar-dark fixed-top navbar-expand-md navbar-no-bg">
 			<div class="container">
-				<a class="navbar-brand" href="index.html">Bootstrap 4 Carousel Template with Videos, Images, Captions</a>
+				<a class="navbar-brand" href="">Bootstrap 4 Carousel Template with Videos, Images, Captions</a>
 			    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			        <span class="navbar-toggler-icon"></span>
 			    </button>
@@ -409,14 +409,14 @@
         </footer>
 
         <!-- Javascript -->
-		<script src="assets/js/jquery-3.3.1.min.js"></script>
-		<script src="assets/js/jquery-migrate-3.0.0.min.js"></script>
+		<script src="{{ url_for('static', filename='assets/js/jquery-3.3.1.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='assets/js/jquery-migrate-3.0.0.min.js') }}"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-        <script src="assets/js/jquery.backstretch.min.js"></script>
-        <script src="assets/js/wow.min.js"></script>
-        <script src="assets/js/waypoints.min.js"></script>
-        <script src="assets/js/scripts.js"></script>
+        <script src="{{ url_for('static', filename='assets/js/jquery.backstretch.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/wow.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/waypoints.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/scripts.js') }}"></script>
 
     </body>
 
