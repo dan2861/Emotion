@@ -66,12 +66,22 @@ $('.login-reg-panel input[type="radio"]').on('change', function() {
     }
 });
 
+
+function sendVideoWatchEvent(videoid) {
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", '/watchevent', true);
+
+	//Send the proper header information along with the request
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+	xhr.send("videoid="+videoid);
+}
+
 // Src: https://stackoverflow.com/questions/37360365/jquery-click-for-video-element
 /* Video Click Event */
 $("video.embed-responsive-item").on("play", function (e) {
-	console.log("Video play event for id:");
-	console.log(e.target.id);
-  	console.debug("Video paused. Current time of videoplay: " + e.target.currentTime );
+	console.log("Video play event for id: " + e.target.id);
+	sendVideoWatchEvent(e.target.id);
 });
 
 // Src: https://github.com/vincepare/iframeTracker-jquery#advanced-tracking
@@ -81,7 +91,8 @@ jQuery(document).ready(function($){
 		blurCallback: function(event) {
 			// Do something when iframe is clicked (like firing an XHR request)
 			// You can know which iframe element is clicked via this._overId
-			console.log("Iframe play event for id:"+this._overId);
+			console.log("Iframe play event for id: " + this._overId);
+			sendVideoWatchEvent(this._overId);
 		},
 		overCallback: function(element, event) {
 			this._overId = $(element).attr('id'); // Saving the iframe id

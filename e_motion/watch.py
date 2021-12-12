@@ -1,6 +1,11 @@
 from flask import Blueprint
+from flask import current_app
+from flask import g
 from flask import render_template
+from flask import request
+from flask import session
 from flask import url_for
+from werkzeug.exceptions import abort
 
 from e_motion.db import get_db
 
@@ -112,3 +117,24 @@ def index():
     	my_vids=[],
     	all_vids = all_videos,
     	recent_vids=recent_videos)
+
+@bp.route("/watchevent", methods = ['POST'])
+def watchevent():
+    """Route for receiving video watch events"""
+
+    user_id = session.get("user_id")
+    videoidraw = request.form["videoid"]
+
+    if not videoidraw:
+        abort(400, 'videoid not found in form')
+
+    # Extract Video Id
+    videoid = int(videoidraw[len('videowithid'):])
+    current_app.logger.info('video id: '+ str(videoid))
+
+    # We only store watchevent for logged in user.
+    if user_id is None:
+        current_app.logger.info('No user logged in')
+    else:
+        current_app.logger.info('Logged in user ' + str(user_id))
+    return ""
