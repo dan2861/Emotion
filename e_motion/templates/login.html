@@ -7,7 +7,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         
-        <title>Bootstrap 4 Carousel Template with Videos, Images, Captions</title>
+        <title>E-Motion</title>
 
         <!-- CSS -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,600">
@@ -31,7 +31,7 @@
 		<!-- Top menu -->
 		<nav class="navbar navbar-dark fixed-top navbar-expand-md navbar-no-bg">
 			<div class="container">
-				<a class="navbar-brand" href="{{ url_for('watch.index') }}">Bootstrap 4 Carousel Template with Videos, Images, Captions</a>
+				<a class="navbar-brand" href="{{ url_for('watch.index') }}">E-Motion</a>
 			    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			        <span class="navbar-toggler-icon"></span>
 			    </button>
@@ -57,15 +57,19 @@
 					<div class="white-panel">
 						<div class="login-show">
 							<h2>Login</h2>
-							<input type="text" placeholder="Username">
-							<input type="password" placeholder="Password">
-							<input type="submit" value="LogIn">
+							<form method="post">
+								<input type="text" name="username" placeholder="Username" id="username" required>
+								<input type="password" name="password" placeholder="Password" id="password" required>
+								<input type="submit" name="submit" value="LogIn">
+							</form>
 						</div>
 						<div class="register-show">
 							<h2>Register</h2>
-							<input type="text" placeholder="Username">
-							<input type="password" placeholder="Password">
-							<input type="submit" value="Register">
+							<form method="post">
+								<input type="text" name="username" placeholder="Username" id="username" required>
+								<input type="password" name="password" placeholder="Password" id="password" required>
+								<input type="submit" name="submit" value="Register">
+							</form>
 						</div>
 					</div>
 				</div>

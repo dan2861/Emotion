@@ -7,7 +7,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         
-        <title>Bootstrap 4 Carousel Template with Videos, Images, Captions</title>
+        <title>E-Motion</title>
 
         <!-- CSS -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,600">
@@ -31,7 +31,7 @@
 		<!-- Top menu -->
 		<nav class="navbar navbar-dark fixed-top navbar-expand-md navbar-no-bg">
 			<div class="container">
-				<a class="navbar-brand" href="">Bootstrap 4 Carousel Template with Videos, Images, Captions</a>
+				<a class="navbar-brand" href="">E-Motion</a>
 			    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			        <span class="navbar-toggler-icon"></span>
 			    </button>
@@ -48,12 +48,9 @@
 			            </li>	
 			            {% if g.user %}
 			            	<li class="nav-item auth-item">
-			            		<a class="nav-link scroll-link" href="">Log out</a>
+			            		<a class="nav-link" href="{{ url_for('auth.logout') }}">Log out</a>
 			            	</li>
 			            {% else %}
-			            	<li class="nav-item auth-item">
-			            		<a class="nav-link" href="">Register</a>
-			            	</li>
 			            	<li class="nav-item auth-item">
 			            		<a class="nav-link" href="{{ url_for('auth.login') }}">Log in</a>
 			            	</li>

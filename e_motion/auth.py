@@ -1,6 +1,9 @@
 from flask import Blueprint
+from flask import current_app
 from flask import render_template
 from flask import g
+from flask import request
+from flask import redirect
 from flask import session
 from flask import url_for
 
@@ -40,4 +43,33 @@ def load_logged_in_user():
 def login():
     """Log in a registered user by adding the user id to the session."""
     # Add the system user for now, but once db is available read from that.
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        action = request.form["submit"]
+
+        if action == "LogIn":
+            current_app.logger.info("Logging in "+username)
+            do_login(username, password)
+
+        elif action == "Register":
+            current_app.logger.info("Registering "+username)
+            do_register(username, password)
+
     return render_template("login.html")
+
+def do_login(username, password):
+    # Fake approach, remove after db.
+    # store the user id in a new session and return to the index
+    session.clear()
+    session["user_id"] = 1 # Using a fake user id (you should get this from db)
+    return redirect(url_for("index"))
+
+def do_register(username, password):
+    pass
+
+@bp.route("/logout")
+def logout():
+    """Clear the current session, including the stored user id."""
+    session.clear()
+    return redirect(url_for("index"))
