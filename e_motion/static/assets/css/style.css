@@ -65,6 +65,10 @@ img { max-width: 100%; }
 	text-indent: -99999px;
 }
 
+.navbar-dark .navbar-nav .auth-item {
+	font-size: 12px
+}
+
 
 /***** Top content *****/
 
