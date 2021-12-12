@@ -87,6 +87,6 @@ def index():
     # db = get_db()
     
     return render_template("index.html",
-    	my_vids=my_videos,
+    	my_vids=[],
     	all_vids = all_videos,
     	recent_vids=recent_videos)

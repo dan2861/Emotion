@@ -61,10 +61,12 @@
 	                </div>
 	            </div>
 	            <!-- End title and description row -->
+	            {% if recent_vids %}
 	            <!-- Carousel row -->
 	            <div class="row">
 	                <div class="col col-md-10 offset-md-1 col-lg-8 offset-lg-2">
 	                	<!-- Carousel -->
+
 	                	<div id="carousel0" class="carousel slide">
 	                		
 	       					<ol class="carousel-indicators">
@@ -114,6 +116,11 @@
 	                </div>
 	            </div>
 	            <!-- End carousel row -->
+	            {% else %}
+	            You haven't watched any videos yet.
+	            <br>
+	            <a class="scroll-link" href="#section-2">Watch Videos</a>
+	            {% endif %}
 	        </div>
         </div>
 
@@ -128,6 +135,7 @@
 	                </div>
 	            </div>
 	            <!-- Section Ttile row -->
+	            {% if my_vids %}
 	            <!-- Carousel row -->
 	         	<div class="row">
 	                <div class="col col-md-10 offset-md-1 col-lg-8 offset-lg-2">
@@ -180,10 +188,14 @@
 	                	<!-- End carousel -->
 	                </div>
 	            </div>
+	            {% else %}
+	            You haven't uploaded any videos yet.
+	            <br>
+	            <a class="scroll-link" href="#section-2">Upload Videos</a>
+	            {% endif %}
 	        	<!-- End carousel row -->
 	        </div>
         </div>
-
 
         <!-- Section 2 -->
         <div class="top-content section-2-container">
@@ -197,6 +209,7 @@
 	            </div>
 	            <!-- Section Ttile row -->
 	            <!-- Carousel row -->
+
 	         	<div class="row">
 	                <div class="col col-md-10 offset-md-1 col-lg-8 offset-lg-2">
 	                	<!-- Carousel -->
