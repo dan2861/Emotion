@@ -8,31 +8,36 @@ bp = Blueprint("watch", __name__)
 
 all_videos = [
     { 
+        "id": 1,
     	"url" : "https://www.youtube.com/embed/6hgVihWjK2c",
     	"title" : "Radio Head Jonny Tom",
     	"description": "",
         "type" : "embed"
     },
     { 
+        "id": 2,
     	"url" : "https://player.vimeo.com/video/84910153?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=ffffff",
     	"title" : "Kewti Animation",
     	"description": "This is deep kewti animation by dani",
         "type" : "embed"
     },
     { 
+        "id": 3,
     	"url" : "https://www.youtube.com/embed/oiKj0Z_Xnjc",
     	"title" : "Stromae - Papouti",
     	"description": "",
         "type" : "embed"
     },
     # Local uploaded video
-    { 
+    {
+        "id": 4, 
     	"url" : "/static/assets/videos/video1.mp4",
     	"title" : "Random Lady",
     	"description": "A nice video by random lady",
         "type" : "mp4"
     },
     { 
+        "id": 5,
     	"url" : "/static/assets/videos/video2.mp4",
     	"title" : "Break Dancer",
     	"description": "",
@@ -40,6 +45,7 @@ all_videos = [
     },
     # TODO: If upload youtube link convert from watch to embed.
     { 
+        "id": 6,
     	"url" : "https://www.youtube.com/embed/Dd7FixvoKBw",
     	"title" : "Blaaake!",
     	"description": "",
@@ -49,6 +55,7 @@ all_videos = [
 
 recent_videos = [
     { 
+        "id": 1,
     	"url" : "https://www.youtube.com/embed/6hgVihWjK2c",
     	"title" : "Radio Head Jonny Tom",
     	"description": "",
@@ -56,12 +63,14 @@ recent_videos = [
     },
     # Local uploaded video
     { 
+        "id": 4,
     	"url" : "/static/assets/videos/video1.mp4",
     	"title" : "Random Lady",
     	"description": "A nice video by random lady",
         "type" : "mp4"
     },
     { 
+        "id": 5,
     	"url" : "/static/assets/videos/video2.mp4",
     	"title" : "Break Dancer",
     	"description": "",
@@ -69,6 +78,7 @@ recent_videos = [
     },
     # TODO: If upload youtube link convert from watch to embed.
     { 
+        "id": 6,
     	"url" : "https://www.youtube.com/embed/Dd7FixvoKBw",
     	"title" : "Blaaake!",
     	"description": "",

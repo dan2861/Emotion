@@ -65,3 +65,30 @@ $('.login-reg-panel input[type="radio"]').on('change', function() {
         $('.register-show').removeClass('show-log-panel');
     }
 });
+
+// Src: https://stackoverflow.com/questions/37360365/jquery-click-for-video-element
+/* Video Click Event */
+$("video.embed-responsive-item").on("play", function (e) {
+	console.log("Video play event for id:");
+	console.log(e.target.id);
+  	console.debug("Video paused. Current time of videoplay: " + e.target.currentTime );
+});
+
+// Src: https://github.com/vincepare/iframeTracker-jquery#advanced-tracking
+/* Iframe Click Event */
+jQuery(document).ready(function($){
+	$('iframe.embed-responsive-item').iframeTracker({
+		blurCallback: function(event) {
+			// Do something when iframe is clicked (like firing an XHR request)
+			// You can know which iframe element is clicked via this._overId
+			console.log("Iframe play event for id:"+this._overId);
+		},
+		overCallback: function(element, event) {
+			this._overId = $(element).attr('id'); // Saving the iframe id
+		},
+		outCallback: function(element, event) {
+			this._overId = null; // Reset hover iframe wrapper id
+		},
+		_overId: null
+	});
+});
