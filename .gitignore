@@ -1,3 +1,4 @@
 .DS_Store
 *.pyc
 e_motion/static/assets/uploaded_videos
+instance
