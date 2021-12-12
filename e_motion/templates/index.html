@@ -38,13 +38,13 @@
 			    <div class="collapse navbar-collapse" id="navbarNav">
 			        <ul class="navbar-nav ml-auto">
 			            <li class="nav-item">
-			                <a class="nav-link scroll-link" href="#top-content">Top</a>
+			                <a class="nav-link scroll-link" href="#top-content">Recently Watched</a>
 			            </li>
 			            <li class="nav-item">
-			                <a class="nav-link scroll-link" href="#section-1">Item 1</a>
+			                <a class="nav-link scroll-link" href="#section-1">My Videos</a>
 			            </li>
 			            <li class="nav-item">
-			                <a class="nav-link scroll-link" href="#section-2">Item 2</a>
+			                <a class="nav-link scroll-link" href="#section-2">All Videos</a>
 			            </li>			        
 			        </ul>
 			    </div>
@@ -54,15 +54,10 @@
         <!-- Top content -->
         <div class="top-content">
 	        <div class="container">
-	        	<!-- Title and description row -->
 	            <div class="row">
-	                <div class="col col-md-10 offset-md-1">
-	                	<h1>{{title}}</h1>
-	                	<div class="description">
-	                		<p>
-	                			{{subtitle}}
-	                		</p>
-	                	</div>
+	                <div class="col section-description wow fadeIn">
+	                    <h2>Recently Watched</h2>
+	                    <div class="divider-1 wow fadeInUp"><span></span></div>
 	                </div>
 	            </div>
 	            <!-- End title and description row -->
@@ -128,7 +123,7 @@
 	        	<!-- Section Title row -->
 	            <div class="row">
 	                <div class="col section-1 section-description wow fadeIn">
-	                    <h2>Section 1</h2>
+	                    <h2>My Videos</h2>
 	                    <div class="divider-1 wow fadeInUp"><span></span></div>
 	                </div>
 	            </div>
@@ -138,49 +133,39 @@
 	                <div class="col col-md-10 offset-md-1 col-lg-8 offset-lg-2">
 	                	<!-- Carousel -->
 	                	<div id="carousel1" class="carousel slide">
-	                	
+	                		
 	       					<ol class="carousel-indicators">
-	       						<li data-target="#carousel1" data-slide-to="0" class="active"></li>
-	       						<li data-target="#carousel1" data-slide-to="1"></li>
-	       						<li data-target="#carousel1" data-slide-to="2"></li>
+
+	       						{% for video in recent_vids %}
+	       							{% if loop.first %}
+	       								<li data-target="#carousel1" data-slide-to="{{loop.index0}}" class="active"></li>
+	       							{% else %}
+	       								<li data-target="#carousel1" data-slide-to="{{loop.index0}}"></li>
+	       							{% endif %}      						
+	       						{% endfor %}
 	       					</ol>
 	       					
 	       					<div class="carousel-inner">
-	       						<div class="carousel-item active">
+	       						{% for video in recent_vids %}
+	       						<div class="carousel-item {{ 'active' if loop.first }}">
 	       							<div class="embed-responsive embed-responsive-16by9">
-	       								<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/6hgVihWjK2c" allowfullscreen></iframe>
+	       								<iframe class="embed-responsive-item" src="{{video.url}}" allowfullscreen></iframe>
 	       							</div>
 	       							<div class="carousel-caption">
-										<h3>Caption for Video 1</h3>
+										<h3>{{video.title}}</h3>
+
+										
 										<div class="carousel-caption-description">
-											<p>This is the caption description text for video 1.</p>
+											{% if video.description %}
+											<p>{{video.description}}</p>
+											{% else %}
+											<p>================================</p>
+											{% endif %}
 										</div>
+										
 									</div>
 	       						</div>
-	       						
-	       						<div class="carousel-item">
-	       							<div class="embed-responsive embed-responsive-16by9">
-	       								<iframe class="embed-responsive-item" src="https://player.vimeo.com/video/84910153?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=ffffff" allowfullscreen></iframe>
-	       							</div>
-	       							<div class="carousel-caption">
-										<h3>Caption for Video 2</h3>
-										<div class="carousel-caption-description">
-											<p>This is the caption description text for video 2.</p>
-										</div>
-									</div>
-	       						</div>
-	       						
-	       						<div class="carousel-item">
-	       							<div class="embed-responsive embed-responsive-16by9">
-	       								<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/oiKj0Z_Xnjc" allowfullscreen></iframe>
-	       							</div>
-	       							<div class="carousel-caption">
-										<h3>Caption for Video 3</h3>
-										<div class="carousel-caption-description">
-											<p>This is the caption description text for video 3.</p>
-										</div>
-									</div>
-	       						</div>
+	       						{% endfor %}
 	       					</div>
 	       					
 							<a class="carousel-control-prev" href="#carousel1" role="button" data-slide="prev">
@@ -194,7 +179,7 @@
 	       				</div>
 	                	<!-- End carousel -->
 	                </div>
-	         	</div>
+	            </div>
 	        	<!-- End carousel row -->
 	        </div>
         </div>
@@ -206,7 +191,7 @@
 	        	<!-- Section Title row -->
 	            <div class="row">
 	                <div class="col section-2 section-description wow fadeIn">
-	                    <h2>Section 2</h2>
+	                    <h2>All Videos</h2>
 	                    <div class="divider-1 wow fadeInUp"><span></span></div>
 	                </div>
 	            </div>
@@ -216,49 +201,39 @@
 	                <div class="col col-md-10 offset-md-1 col-lg-8 offset-lg-2">
 	                	<!-- Carousel -->
 	                	<div id="carousel2" class="carousel slide">
-	                	
+	                		
 	       					<ol class="carousel-indicators">
-	       						<li data-target="#carousel2" data-slide-to="0" class="active"></li>
-	       						<li data-target="#carousel2" data-slide-to="1"></li>
-	       						<li data-target="#carousel2" data-slide-to="2"></li>
+
+	       						{% for video in recent_vids %}
+	       							{% if loop.first %}
+	       								<li data-target="#carousel2" data-slide-to="{{loop.index0}}" class="active"></li>
+	       							{% else %}
+	       								<li data-target="#carousel2" data-slide-to="{{loop.index0}}"></li>
+	       							{% endif %}      						
+	       						{% endfor %}
 	       					</ol>
 	       					
 	       					<div class="carousel-inner">
-	       						<div class="carousel-item active">
+	       						{% for video in recent_vids %}
+	       						<div class="carousel-item {{ 'active' if loop.first }}">
 	       							<div class="embed-responsive embed-responsive-16by9">
-	       								<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/6hgVihWjK2c" allowfullscreen></iframe>
+	       								<iframe class="embed-responsive-item" src="{{video.url}}" allowfullscreen></iframe>
 	       							</div>
 	       							<div class="carousel-caption">
-										<h3>Caption for Video 1</h3>
+										<h3>{{video.title}}</h3>
+
+										
 										<div class="carousel-caption-description">
-											<p>This is the caption description text for video 1.</p>
+											{% if video.description %}
+											<p>{{video.description}}</p>
+											{% else %}
+											<p>================================</p>
+											{% endif %}
 										</div>
+										
 									</div>
 	       						</div>
-	       						
-	       						<div class="carousel-item">
-	       							<div class="embed-responsive embed-responsive-16by9">
-	       								<iframe class="embed-responsive-item" src="https://player.vimeo.com/video/84910153?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=ffffff" allowfullscreen></iframe>
-	       							</div>
-	       							<div class="carousel-caption">
-										<h3>Caption for Video 2</h3>
-										<div class="carousel-caption-description">
-											<p>This is the caption description text for video 2.</p>
-										</div>
-									</div>
-	       						</div>
-	       						
-	       						<div class="carousel-item">
-	       							<div class="embed-responsive embed-responsive-16by9">
-	       								<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/oiKj0Z_Xnjc" allowfullscreen></iframe>
-	       							</div>
-	       							<div class="carousel-caption">
-										<h3>Caption for Video 3</h3>
-										<div class="carousel-caption-description">
-											<p>This is the caption description text for video 3.</p>
-										</div>
-									</div>
-	       						</div>
+	       						{% endfor %}
 	       					</div>
 	       					
 							<a class="carousel-control-prev" href="#carousel2" role="button" data-slide="prev">
@@ -272,7 +247,7 @@
 	       				</div>
 	                	<!-- End carousel -->
 	                </div>
-	         	</div>
+	            </div>
 	        	<!-- End carousel row -->
 	        </div>
         </div>
