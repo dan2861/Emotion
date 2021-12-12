@@ -36,17 +36,17 @@
 			        <span class="navbar-toggler-icon"></span>
 			    </button>
 			    <div class="collapse navbar-collapse" id="navbarNav">
-			        <ul class="navbar-nav ml-auto">
-			            <li class="nav-item">
-			                <a class="nav-link scroll-link" href="#top-content">Recently Watched</a>
-			            </li>
-			            <li class="nav-item">
-			                <a class="nav-link scroll-link" href="#section-1">My Videos</a>
-			            </li>
-			            <li class="nav-item">
-			                <a class="nav-link scroll-link" href="#section-2">All Videos</a>
-			            </li>	
+			        <ul class="navbar-nav ml-auto">	
 			            {% if g.user %}
+			            	<li class="nav-item">
+			            	    <a class="nav-link scroll-link" href="#top-content">Recently Watched</a>
+			            	</li>
+			            	<li class="nav-item">
+			            	    <a class="nav-link scroll-link" href="#section-1">My Videos</a>
+			            	</li>
+			            	<li class="nav-item">
+			            	    <a class="nav-link scroll-link" href="#section-2">All Videos</a>
+			            	</li>
 			            	<li class="nav-item auth-item">
 			            		<a class="nav-link" href="{{ url_for('auth.logout') }}">Log out</a>
 			            	</li>
@@ -60,6 +60,8 @@
 		    </div>
 		</nav>
 
+		<!-- Show user specific content only for loggedin users -->
+		{% if g.user %}
         <!-- Top content -->
         <div class="top-content">
 	        <div class="container">
@@ -205,6 +207,7 @@
 	        	<!-- End carousel row -->
 	        </div>
         </div>
+        {% endif %}
 
         <!-- Section 2 -->
         <div class="top-content section-2-container">
@@ -212,7 +215,11 @@
 	        	<!-- Section Title row -->
 	            <div class="row">
 	                <div class="col section-2 section-description wow fadeIn">
-	                    <h2>All Videos</h2>
+	                	{% if g.user %}
+	                    	<h2>All Videos</h2>
+	                    {% else %}
+	                    	<h2>Welcome to E-motion</h2>
+	                    {% endif %}
 	                    <div class="divider-1 wow fadeInUp"><span></span></div>
 	                </div>
 	            </div>

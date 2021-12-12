@@ -50,23 +50,27 @@ def login():
 
         if action == "LogIn":
             current_app.logger.info("Logging in "+username)
-            do_login(username, password)
+            if do_login(username, password):
+                return redirect(url_for("index"))
 
         elif action == "Register":
             current_app.logger.info("Registering "+username)
-            do_register(username, password)
+            if do_register(username, password):
+                return redirect(url_for("auth.login"))
 
     return render_template("login.html")
 
+# Do login and return true on success.
 def do_login(username, password):
     # Fake approach, remove after db.
     # store the user id in a new session and return to the index
     session.clear()
     session["user_id"] = 1 # Using a fake user id (you should get this from db)
-    return redirect(url_for("index"))
+    return True
 
+# Do register and return true on success.
 def do_register(username, password):
-    pass
+    return True
 
 @bp.route("/logout")
 def logout():
