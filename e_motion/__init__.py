@@ -10,6 +10,7 @@ def create_app(test_config=None):
         name = 'e-motion',
         SECRET_KEY='dev',
         UPLOAD_FOLDER = 'e_motion/static/assets/uploaded_videos',
+        UPLOADED_ASSETS = 'assets/uploaded_videos',
         DATABASE=os.path.join(app.instance_path, 'e-motion.sqlite'),
     )
 

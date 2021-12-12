@@ -1,4 +1,5 @@
 import os
+import random
 
 from flask import Blueprint
 from flask import current_app
@@ -19,110 +20,38 @@ from e_motion.db import get_db
 
 bp = Blueprint("watch", __name__)
 
-all_videos = [
-    { 
-        "id": 1,
-    	"url" : "https://www.youtube.com/embed/6hgVihWjK2c",
-    	"title" : "Radio Head Jonny Tom",
-    	"description": "",
-        "type" : "embed"
-    },
-    { 
-        "id": 2,
-    	"url" : "https://player.vimeo.com/video/84910153?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=ffffff",
-    	"title" : "Kewti Animation",
-    	"description": "This is deep kewti animation by dani",
-        "type" : "embed"
-    },
-    { 
-        "id": 3,
-    	"url" : "https://www.youtube.com/embed/oiKj0Z_Xnjc",
-    	"title" : "Stromae - Papouti",
-    	"description": "",
-        "type" : "embed"
-    },
-    # Local uploaded video
-    {
-        "id": 4, 
-    	"url" : "/static/assets/videos/video1.mp4",
-    	"title" : "Random Lady",
-    	"description": "A nice video by random lady",
-        "type" : "mp4"
-    },
-    { 
-        "id": 5,
-    	"url" : "/static/assets/videos/video2.mp4",
-    	"title" : "Break Dancer",
-    	"description": "",
-        "type" : "mp4"
-    },
-    # TODO: If upload youtube link convert from watch to embed.
-    { 
-        "id": 6,
-    	"url" : "https://www.youtube.com/embed/Dd7FixvoKBw",
-    	"title" : "Blaaake!",
-    	"description": "",
-        "type" : "embed"
-    },
-]
+def get_all_videos(db):
+    # Fetch all rows from the video table.
+    videos = db.execute(
+        "SELECT id, url, title, description, type"
+        " FROM video"
+    ).fetchall()
+    return videos
 
-recent_videos = [
-    { 
-        "id": 1,
-    	"url" : "https://www.youtube.com/embed/6hgVihWjK2c",
-    	"title" : "Radio Head Jonny Tom",
-    	"description": "",
-        "type" : "embed"
-    },
-    # Local uploaded video
-    { 
-        "id": 4,
-    	"url" : "/static/assets/videos/video1.mp4",
-    	"title" : "Random Lady",
-    	"description": "A nice video by random lady",
-        "type" : "mp4"
-    },
-    { 
-        "id": 5,
-    	"url" : "/static/assets/videos/video2.mp4",
-    	"title" : "Break Dancer",
-    	"description": "",
-        "type" : "mp4"
-    },
-    # TODO: If upload youtube link convert from watch to embed.
-    { 
-        "id": 6,
-    	"url" : "https://www.youtube.com/embed/Dd7FixvoKBw",
-    	"title" : "Blaaake!",
-    	"description": "",
-        "type" : "embed"
-    },
-]
-
-my_videos = [
-    { 
-    	"url" : "/static/assets/videos/video2.mp4",
-    	"title" : "Break Dancer",
-    	"description": "",
-        "type" : "mp4"
-    },
-    # TODO: If upload youtube link convert from watch to embed.
-    { 
-    	"url" : "https://www.youtube.com/embed/Dd7FixvoKBw",
-    	"title" : "Blaaake!",
-    	"description": "",
-        "type" : "embed"
-    },
-]
+def get_my_videos(db, user_id):
+    # Fetch all rows from the video table.
+    videos = db.execute(
+        "SELECT id, url, title, description, type"
+        " FROM video WHERE uploader_id = ?", (user_id,)
+    ).fetchall()
+    return videos
 
 @bp.route("/")
 def index():
     """Populate the relevant video files for the current user."""
-    # Use db once it is intialized
-    # db = get_db()
-    
+    db = get_db()
+    # Get all videos in the system.
+    all_videos = get_all_videos(db)
+    random.shuffle(all_videos)
+
+    # Get my videos if logged in.
+    if g.user:
+        my_videos = get_my_videos(db, user_id=g.user['id'])
+    else:
+        my_videos = []
+    recent_videos = []
     return render_template("index.html",
-    	my_vids=[],
+    	my_vids=my_videos,
     	all_vids = all_videos,
     	recent_vids=recent_videos)
 
@@ -147,6 +76,7 @@ def watchevent():
         current_app.logger.info('Logged in user ' + str(user_id))
     return ""
 
+
 # Src: https://flask.palletsprojects.com/en/2.0.x/patterns/fileuploads/
 ALLOWED_EXTENSIONS = ['mp4']
 def allowed_file(filename):
@@ -157,18 +87,26 @@ def allowed_file(filename):
 def get_embed_link(watch_url):
     return watch_url.replace("watch?v=", 'embed/')
 
+# Insert video metadata into database.
+def insert_video(db, uploader_id, title, description, url, video_type):
+    db.execute(
+        'INSERT INTO video (uploader_id, title, description, url, type)'
+        ' VALUES (?, ?, ?, ?, ?)',
+        (uploader_id, title, description, url, video_type)
+    )
+    db.commit()
+
 @bp.route("/upload", methods=("GET", "POST"))
 @login_required
 def upload():
-    upload_folder = current_app.config['UPLOAD_FOLDER']
-
     if request.method == 'POST':
         title = request.form['title']
         description = request.form['description']
         embedlink = get_embed_link(request.form['embedlink'])
 
         if embedlink:
-            current_app.logger.info('Uploaded link:' + embedlink)
+            # Insert metadata into db.
+            insert_video(get_db(), g.user['id'], title, description, url=embedlink, video_type="embed")
             flash('Upload Successful')
             return redirect(url_for('watch.upload'))
 
@@ -190,8 +128,18 @@ def upload():
         # Save file in the saved directory.
         if file:
             filename = secure_filename(file.filename)
+
+            # Upload File
+            upload_folder = current_app.config['UPLOAD_FOLDER']
             filepath = os.path.join(upload_folder, filename)
             file.save(filepath)
+
+            # Insert metadata into db.
+            video_folder = current_app.config['UPLOADED_ASSETS']
+            videopath = os.path.join(video_folder, filename)
+            videourl = url_for('static', filename=videopath)
+            insert_video(get_db(), g.user['id'], title, description, url=videourl, video_type="mp4")
+
             flash('Upload Successful')
             return redirect(url_for('watch.upload'))
 
