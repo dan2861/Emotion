@@ -1,7 +1,6 @@
 import functools
 
 from flask import Blueprint
-from flask import current_app
 from flask import flash
 from flask import render_template
 from flask import g
@@ -36,11 +35,11 @@ def load_logged_in_user():
         g.user = None
     else:
     	# Remove after db.
-    	g.user = {"id": 1, "username" : "systemuser", "password" : "bulldogs"} 
+    	# g.user = {"id": 1, "username" : "systemuser", "password" : "bulldogs"} 
     	# Uncomment once db is setup.
-        #g.user = (
-        #    get_db().execute("SELECT * FROM user WHERE id = ?", (user_id,)).fetchone()
-        #)
+        g.user = (
+            get_db().execute("SELECT * FROM user WHERE id = ?", (user_id,)).fetchone()
+        )
 
 @bp.route("/login", methods=("GET", "POST"))
 def login():
@@ -52,28 +51,62 @@ def login():
         action = request.form["submit"]
 
         if action == "LogIn":
-            current_app.logger.info("Logging in "+username)
-            if not do_login(username, password):
+            if do_login(get_db(), username, password):
                 return redirect(url_for("index"))
 
         elif action == "Register":
-            current_app.logger.info("Registering "+username)
-            if do_register(username, password):
-                return redirect(url_for("auth.login"))
+            do_register(get_db(), username, password)
+            return redirect(url_for("auth.login"))
 
     return render_template("login.html")
 
 # Do login and return true on success.
-def do_login(username, password):
-    # Fake approach, remove after db.
-    # store the user id in a new session and return to the index
-    session.clear()
-    session["user_id"] = 1 # Using a fake user id (you should get this from db)
-    return True
+def do_login(db, username, password):
+    error = None
+    # Fetch user record from database.
+    user = db.execute(
+        "SELECT * FROM user WHERE username = ?", (username,)
+    ).fetchone()
+    if user is None:
+        error = "Incorrect username."
+    elif user["password"] != password:
+        error = "Incorrect password."
+
+    if error is None:
+        # store the user id in a new session and return to the index
+        session.clear()
+        session["user_id"] = user["id"]
+        return True
+
+    flash(error)
+    return False
 
 # Do register and return true on success.
-def do_register(username, password):
-    return True
+def do_register(db, username, password):
+    error = None
+    if not username:
+        error = "Username is required!"
+    elif not password:
+        error = "Password is required!"
+
+    if error is None:
+        try:
+            db.execute(
+                "INSERT INTO user (username, password) VALUES (?, ?)",
+                (username, password),
+            )
+            db.commit()
+        except db.IntegrityError:
+            # The username was already taken, which caused the
+            # commit to fail. Show a validation error.
+            error = f"User {username} is already registered."
+        else:
+            # Success.
+            flash("Registration Successful!")
+            return True
+
+        flash(error)
+    return False
 
 @bp.route("/logout")
 def logout():
