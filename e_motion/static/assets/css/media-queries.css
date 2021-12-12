@@ -68,7 +68,7 @@ only screen and (                min-resolution: 2dppx) {
 	
 	/* logo */
     .navbar-brand {
-    	background-image: url(../img/logo@2x.png) !important; background-repeat: no-repeat !important; background-size: 123px 34px !important;
+    	background-image: url(https://upload.wikimedia.org/wikipedia/commons/f/fd/E-motion_logo.jpg) !important; background-repeat: no-repeat !important; background-size: 125px 55px !important;
     }
 	
 }
