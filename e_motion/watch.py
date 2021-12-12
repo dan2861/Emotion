@@ -138,3 +138,7 @@ def watchevent():
     else:
         current_app.logger.info('Logged in user ' + str(user_id))
     return ""
+
+@bp.route("/upload")
+def upload():
+    return render_template("upload.html")

@@ -48,6 +48,9 @@
 			            	    <a class="nav-link scroll-link" href="#section-2">All Videos</a>
 			            	</li>
 			            	<li class="nav-item auth-item">
+			            		<a class="nav-link" href="{{ url_for('watch.upload') }}">Upload</a>
+			            	</li>
+			            	<li class="nav-item auth-item">
 			            		<a class="nav-link" href="{{ url_for('auth.logout') }}">Log out</a>
 			            	</li>
 			            {% else %}
@@ -215,10 +218,12 @@
 	                	<!-- End carousel -->
 	                </div>
 	            </div>
+	            <br>
+	            <a href="{{ url_for('watch.upload') }}">Upload More Videos</a>
 	            {% else %}
 	            You haven't uploaded any videos yet.
 	            <br>
-	            <a class="scroll-link" href="#section-2">Upload Videos</a>
+	            <a href="{{ url_for('watch.upload') }}">Upload Videos</a>
 	            {% endif %}
 	        	<!-- End carousel row -->
 	        </div>
