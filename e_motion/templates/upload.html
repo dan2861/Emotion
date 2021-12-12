@@ -50,7 +50,13 @@
         <!-- Top content -->
         <div class="top-content">
 	        <div class="container upload-container">
-  				Not sure how to upload yet.
+                {% for message in get_flashed_messages() %}
+                    <div class="flash">{{ message }}</div>
+                {% endfor %}
+                <form method=post enctype=multipart/form-data>
+                    <input type=file name=file>
+                    <input type=submit value=Upload>
+                </form>
 	        </div>
         </div>		
 

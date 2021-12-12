@@ -9,6 +9,7 @@ def create_app(test_config=None):
     app.config.from_mapping(
         name = 'e-motion',
         SECRET_KEY='dev',
+        UPLOAD_FOLDER = 'e_motion/static/assets/uploaded_videos',
         DATABASE=os.path.join(app.instance_path, 'e-motion.sqlite'),
     )
 

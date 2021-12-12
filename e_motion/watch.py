@@ -1,11 +1,17 @@
+import os
+
 from flask import Blueprint
 from flask import current_app
+from flask import flash
 from flask import g
+from flask import redirect
 from flask import render_template
 from flask import request
 from flask import session
 from flask import url_for
+
 from werkzeug.exceptions import abort
+from werkzeug.utils import secure_filename
 
 from e_motion.db import get_db
 
@@ -139,6 +145,37 @@ def watchevent():
         current_app.logger.info('Logged in user ' + str(user_id))
     return ""
 
-@bp.route("/upload")
+# Src: https://flask.palletsprojects.com/en/2.0.x/patterns/fileuploads/
+ALLOWED_EXTENSIONS = ['mp4']
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@bp.route("/upload", methods=("GET", "POST"))
 def upload():
+    upload_folder = current_app.config['UPLOAD_FOLDER']
+
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # If the user does not select a file, the browser submits an
+        # empty file without a filename.
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+
+        if not allowed_file(file.filename):
+            flash('Only mp4 files supported.')
+            return redirect(request.url)
+
+        # Save file in the saved directory.
+        if file:
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(upload_folder, filename))
+            flash('Upload Successful')
+            return redirect(url_for('watch.upload'))
+
     return render_template("upload.html")
