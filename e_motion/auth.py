@@ -1,5 +1,8 @@
+import functools
+
 from flask import Blueprint
 from flask import current_app
+from flask import flash
 from flask import render_template
 from flask import g
 from flask import request
@@ -50,7 +53,7 @@ def login():
 
         if action == "LogIn":
             current_app.logger.info("Logging in "+username)
-            if do_login(username, password):
+            if not do_login(username, password):
                 return redirect(url_for("index"))
 
         elif action == "Register":

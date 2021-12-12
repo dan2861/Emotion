@@ -57,6 +57,9 @@
 					<div class="white-panel">
 						<div class="login-show">
 							<h2>Login</h2>
+							{% for message in get_flashed_messages() %}
+                        		<div class="flash">{{ message }}</div>
+                    		{% endfor %}
 							<form method="post">
 								<input type="text" name="username" placeholder="Username" id="username" required>
 								<input type="password" name="password" placeholder="Password" id="password" required>

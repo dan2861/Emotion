@@ -10,6 +10,8 @@ from flask import request
 from flask import session
 from flask import url_for
 
+from e_motion.auth import login_required
+
 from werkzeug.exceptions import abort
 from werkzeug.utils import secure_filename
 
@@ -156,6 +158,7 @@ def get_embed_link(watch_url):
     return watch_url.replace("watch?v=", 'embed/')
 
 @bp.route("/upload", methods=("GET", "POST"))
+@login_required
 def upload():
     upload_folder = current_app.config['UPLOAD_FOLDER']
 
