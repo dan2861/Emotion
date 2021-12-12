@@ -67,13 +67,15 @@ def watchevent():
 
     # Extract Video Id
     videoid = int(videoidraw[len('videowithid'):])
-    current_app.logger.info('video id: '+ str(videoid))
 
     # We only store watchevent for logged in user.
-    if user_id is None:
-        current_app.logger.info('No user logged in')
-    else:
-        current_app.logger.info('Logged in user ' + str(user_id))
+    if user_id:
+        db = get_db()
+        db.execute(
+            'INSERT INTO watchevent (viewer_id, video_id)'
+            ' VALUES (?, ?)', (user_id, videoid)
+        )
+        db.commit()
     return ""
 
 
