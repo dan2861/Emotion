@@ -52,10 +52,10 @@
 			            	</li>
 			            {% else %}
 			            	<li class="nav-item auth-item">
-			            		<a class="nav-link scroll-link" href="">Register</a>
+			            		<a class="nav-link" href="">Register</a>
 			            	</li>
 			            	<li class="nav-item auth-item">
-			            		<a class="nav-link scroll-link" href="">Log in</a>
+			            		<a class="nav-link" href="{{ url_for('auth.login') }}">Log in</a>
 			            	</li>
 			            {% endif %}		        
 			        </ul>

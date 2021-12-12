@@ -24,10 +24,9 @@ def create_app(test_config=None):
     db.init_app(app)
 
     # apply the blueprints to the app
-    # from flaskr import auth, blog
-    from e_motion import watch
+    from e_motion import auth, watch
 
-    # app.register_blueprint(auth.bp)
+    app.register_blueprint(auth.bp)
     app.register_blueprint(watch.bp)
 
     # make url_for('index') == url_for('watch.index')
