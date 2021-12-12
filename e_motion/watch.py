@@ -12,13 +12,37 @@ def index():
     # Use db once it is intialized
     # db = get_db()
     recent_videos = [
-    	"https://www.youtube.com/embed/6hgVihWjK2c",
-    	"https://player.vimeo.com/video/84910153?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=ffffff",
-    	"https://www.youtube.com/embed/oiKj0Z_Xnjc",
+    	{ 
+    		"url" : "https://www.youtube.com/embed/6hgVihWjK2c",
+    		"title" : "Radio Head Jonny Tom",
+    		"description": "",
+    	},
+    	{ 
+    		"url" : "https://player.vimeo.com/video/84910153?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=ffffff",
+    		"title" : "Kewti Animation",
+    		"description": "This is deep kewti animation by dani",
+    	},
+    	{ 
+    		"url" : "https://www.youtube.com/embed/oiKj0Z_Xnjc",
+    		"title" : "Stromae - Papouti",
+    		"description": "",
+    	},
     	# Local uploaded video
-    	url_for('static', filename='assets/videos/video1.mp4'),
-    	url_for('static', filename='assets/videos/video2.mp4'),
+    	{ 
+    		"url" : url_for('static', filename='assets/videos/video1.mp4'),
+    		"title" : "Random Lady",
+    		"description": "A nice video by random lady",
+    	},
+    	{ 
+    		"url" : url_for('static', filename='assets/videos/video2.mp4'),
+    		"title" : "Break Dancer",
+    		"description": "",
+    	},
     	# TODO: If upload youtube link convert from watch to embed.
-    	"https://www.youtube.com/embed/Dd7FixvoKBw",
+    	{ 
+    		"url" : "https://www.youtube.com/embed/Dd7FixvoKBw",
+    		"title" : "Blaaake!",
+    		"description": "",
+    	},
     ]
     return render_template("index.html", recent_vids=recent_videos,title="Dani's Template", subtitle="The temppate Subtitle")

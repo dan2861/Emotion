@@ -74,7 +74,7 @@
 	                		
 	       					<ol class="carousel-indicators">
 
-	       						{% for video_link in recent_vids %}
+	       						{% for video in recent_vids %}
 	       							{% if loop.first %}
 	       								<li data-target="#carousel0" data-slide-to="{{loop.index0}}" class="active"></li>
 	       							{% else %}
@@ -84,16 +84,23 @@
 	       					</ol>
 	       					
 	       					<div class="carousel-inner">
-	       						{% for video_link in recent_vids %}
+	       						{% for video in recent_vids %}
 	       						<div class="carousel-item {{ 'active' if loop.first }}">
 	       							<div class="embed-responsive embed-responsive-16by9">
-	       								<iframe class="embed-responsive-item" src="{{video_link}}" allowfullscreen></iframe>
+	       								<iframe class="embed-responsive-item" src="{{video.url}}" allowfullscreen></iframe>
 	       							</div>
 	       							<div class="carousel-caption">
-										<h3>Caption for Video {{loop.index}}</h3>
+										<h3>{{video.title}}</h3>
+
+										
 										<div class="carousel-caption-description">
-											<p>This is the caption description text for video {{loop.index}}.</p>
+											{% if video.description %}
+											<p>{{video.description}}</p>
+											{% else %}
+											<p>================================</p>
+											{% endif %}
 										</div>
+										
 									</div>
 	       						</div>
 	       						{% endfor %}
