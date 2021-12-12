@@ -50,17 +50,22 @@
         <!-- Top content -->
         <div class="top-content">
 	        <div class="container upload-container">
-                {% for message in get_flashed_messages() %}
-                    <div class="flash">{{ message }}</div>
-                {% endfor %}
-                <form method=post enctype=multipart/form-data>
-                    <input type="text" name="title" placeholder="Title" id="title" required> <br>
-                    <textarea name="description" placeholder="Description" id="description" maxlength="200"></textarea> <br>
-                    <input type="text" name="embedlink" placeholder="Embed Link" id="embedlink"> <br>
-                      <p> or </p>
-                    <input type=file name=file> <br>
-                    <input type=submit value=Upload>
-                </form>
+                <div class="upload-panel">
+                    <div class="white-panel">
+                    <h3>Upload</h3>
+                    {% for message in get_flashed_messages() %}
+                        <div class="flash">{{ message }}</div>
+                    {% endfor %}
+                    <form method=post enctype=multipart/form-data>
+                        <input type="text" name="title" placeholder="Title" id="title" required>
+                        <textarea name="description" placeholder="Description" id="description" maxlength="200" style="resize: none;"></textarea>
+                        <input type="text" name="embedlink" placeholder="Embed Link" id="embedlink">
+                        <p> or </p>
+                        <input type=file name=file>
+                        <input type=submit value=Upload>
+                    </form>
+                    </div>
+                </div>
 	        </div>
         </div>		
 
