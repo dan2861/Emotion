@@ -151,11 +151,24 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+# Converts youtube watch url to embed link.
+def get_embed_link(watch_url):
+    return watch_url.replace("watch?v=", 'embed/')
+
 @bp.route("/upload", methods=("GET", "POST"))
 def upload():
     upload_folder = current_app.config['UPLOAD_FOLDER']
 
     if request.method == 'POST':
+        title = request.form['title']
+        description = request.form['description']
+        embedlink = get_embed_link(request.form['embedlink'])
+
+        if embedlink:
+            current_app.logger.info('Uploaded link:' + embedlink)
+            flash('Upload Successful')
+            return redirect(url_for('watch.upload'))
+
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
@@ -164,7 +177,7 @@ def upload():
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
         if file.filename == '':
-            flash('No selected file')
+            flash('Select a File or an Embed Link')
             return redirect(request.url)
 
         if not allowed_file(file.filename):
@@ -174,7 +187,8 @@ def upload():
         # Save file in the saved directory.
         if file:
             filename = secure_filename(file.filename)
-            file.save(os.path.join(upload_folder, filename))
+            filepath = os.path.join(upload_folder, filename)
+            file.save(filepath)
             flash('Upload Successful')
             return redirect(url_for('watch.upload'))
 

@@ -54,7 +54,11 @@
                     <div class="flash">{{ message }}</div>
                 {% endfor %}
                 <form method=post enctype=multipart/form-data>
-                    <input type=file name=file>
+                    <input type="text" name="title" placeholder="Title" id="title" required> <br>
+                    <textarea name="description" placeholder="Description" id="description" maxlength="200"></textarea> <br>
+                    <input type="text" name="embedlink" placeholder="Embed Link" id="embedlink"> <br>
+                      <p> or </p>
+                    <input type=file name=file> <br>
                     <input type=submit value=Upload>
                 </form>
 	        </div>
