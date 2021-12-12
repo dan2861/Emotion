@@ -57,11 +57,10 @@
 	        	<!-- Title and description row -->
 	            <div class="row">
 	                <div class="col col-md-10 offset-md-1">
-	                	<h1>Carousel Template with Videos, Images, Captions</h1>
+	                	<h1>{{title}}</h1>
 	                	<div class="description">
 	                		<p>
-	                			This is a free Carousel template with Videos, Images and Captions, made with the Bootstrap 4 framework. 
-	                			Click on the indicators, controls and links to interact with the page.
+	                			{{subtitle}}
 	                		</p>
 	                	</div>
 	                </div>
@@ -72,49 +71,32 @@
 	                <div class="col col-md-10 offset-md-1 col-lg-8 offset-lg-2">
 	                	<!-- Carousel -->
 	                	<div id="carousel0" class="carousel slide">
-	                	
+	                		
 	       					<ol class="carousel-indicators">
-	       						<li data-target="#carousel0" data-slide-to="0" class="active"></li>
-	       						<li data-target="#carousel0" data-slide-to="1"></li>
-	       						<li data-target="#carousel0" data-slide-to="2"></li>
+
+	       						{% for video_link in recent_vids %}
+	       							{% if loop.first %}
+	       								<li data-target="#carousel0" data-slide-to="{{loop.index0}}" class="active"></li>
+	       							{% else %}
+	       								<li data-target="#carousel0" data-slide-to="{{loop.index0}}"></li>
+	       							{% endif %}      						
+	       						{% endfor %}
 	       					</ol>
 	       					
 	       					<div class="carousel-inner">
-	       						<div class="carousel-item active">
+	       						{% for video_link in recent_vids %}
+	       						<div class="carousel-item {{ 'active' if loop.first }}">
 	       							<div class="embed-responsive embed-responsive-16by9">
-	       								<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/6hgVihWjK2c" allowfullscreen></iframe>
+	       								<iframe class="embed-responsive-item" src="{{video_link}}" allowfullscreen></iframe>
 	       							</div>
 	       							<div class="carousel-caption">
-										<h3>Caption for Video 1</h3>
+										<h3>Caption for Video {{loop.index}}</h3>
 										<div class="carousel-caption-description">
-											<p>This is the caption description text for video 1.</p>
+											<p>This is the caption description text for video {{loop.index}}.</p>
 										</div>
 									</div>
 	       						</div>
-	       						
-	       						<div class="carousel-item">
-	       							<div class="embed-responsive embed-responsive-16by9">
-	       								<iframe class="embed-responsive-item" src="https://player.vimeo.com/video/84910153?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=ffffff" allowfullscreen></iframe>
-	       							</div>
-	       							<div class="carousel-caption">
-										<h3>Caption for Video 2</h3>
-										<div class="carousel-caption-description">
-											<p>This is the caption description text for video 2.</p>
-										</div>
-									</div>
-	       						</div>
-	       						
-	       						<div class="carousel-item">
-	       							<div class="embed-responsive embed-responsive-16by9">
-	       								<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/oiKj0Z_Xnjc" allowfullscreen></iframe>
-	       							</div>
-	       							<div class="carousel-caption">
-										<h3>Caption for Video 3</h3>
-										<div class="carousel-caption-description">
-											<p>This is the caption description text for video 3.</p>
-										</div>
-									</div>
-	       						</div>
+	       						{% endfor %}
 	       					</div>
 	       					
 							<a class="carousel-control-prev" href="#carousel0" role="button" data-slide="prev">
