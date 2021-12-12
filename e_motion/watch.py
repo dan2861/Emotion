@@ -36,6 +36,17 @@ def get_my_videos(db, user_id):
     ).fetchall()
     return videos
 
+# Get the recently watched for user_id
+def get_recent_videos(db, user_id):
+    videos = db.execute(
+        "SELECT video_id as id, url, title, description, type, MAX(watch_time)"
+        " FROM watchevent w JOIN video ON w.video_id = video.id"
+        " WHERE viewer_id = ?"
+        "GROUP BY video_id, url, title, description, type"
+        " ORDER BY watch_time DESC limit 10", (user_id,)
+    ).fetchall()
+    return videos
+
 @bp.route("/")
 def index():
     """Populate the relevant video files for the current user."""
@@ -44,12 +55,13 @@ def index():
     all_videos = get_all_videos(db)
     random.shuffle(all_videos)
 
-    # Get my videos if logged in.
+    # Get my videos/recent_videos if logged in.
     if g.user:
         my_videos = get_my_videos(db, user_id=g.user['id'])
+        recent_videos = get_recent_videos(db, user_id=g.user['id'])
     else:
         my_videos = []
-    recent_videos = []
+        recent_videos = []
     return render_template("index.html",
     	my_vids=my_videos,
     	all_vids = all_videos,
