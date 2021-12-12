@@ -94,9 +94,17 @@
 	       					<div class="carousel-inner">
 	       						{% for video in recent_vids %}
 	       						<div class="carousel-item {{ 'active' if loop.first }}">
-	       							<div class="embed-responsive embed-responsive-16by9">
-	       								<iframe class="embed-responsive-item" src="{{video.url}}" allowfullscreen></iframe>
-	       							</div>
+	       							{% if video.type == "embed" %}
+	       								<div class="embed-responsive embed-responsive-16by9">
+	       									<iframe class="embed-responsive-item" src="{{video.url}}" allowfullscreen></iframe>
+	       								</div>
+	       							{% else %}
+	       								<div class="embed-responsive embed-responsive-16by9">
+    										<video controls="true" class="embed-responsive-item">
+    										  <source src="{{video.url}}" type="video/{{video.type}}" />
+    										</video>
+										</div>
+	       							{% endif %}
 	       							<div class="carousel-caption">
 										<h3>{{video.title}}</h3>
 
@@ -167,9 +175,17 @@
 	       					<div class="carousel-inner">
 	       						{% for video in my_vids %}
 	       						<div class="carousel-item {{ 'active' if loop.first }}">
-	       							<div class="embed-responsive embed-responsive-16by9">
-	       								<iframe class="embed-responsive-item" src="{{video.url}}" allowfullscreen></iframe>
-	       							</div>
+	       							{% if video.type == "embed" %}
+	       								<div class="embed-responsive embed-responsive-16by9">
+	       									<iframe class="embed-responsive-item" src="{{video.url}}" allowfullscreen></iframe>
+	       								</div>
+	       							{% else %}
+	       								<div class="embed-responsive embed-responsive-16by9">
+    										<video controls="true" class="embed-responsive-item">
+    										  <source src="{{video.url}}" type="video/{{video.type}}" />
+    										</video>
+										</div>
+	       							{% endif %}
 	       							<div class="carousel-caption">
 										<h3>{{video.title}}</h3>
 
@@ -208,6 +224,7 @@
 	        </div>
         </div>
         {% endif %}
+        <!-- End of Show user specific content only for loggedin users -->
 
         <!-- Section 2 -->
         <div class="top-content section-2-container">
@@ -245,12 +262,20 @@
 	       					<div class="carousel-inner">
 	       						{% for video in all_vids %}
 	       						<div class="carousel-item {{ 'active' if loop.first }}">
-	       							<div class="embed-responsive embed-responsive-16by9">
-	       								<iframe class="embed-responsive-item" src="{{video.url}}" allowfullscreen></iframe>
-	       							</div>
+	       							{% if video.type == "embed" %}
+	       								<div class="embed-responsive embed-responsive-16by9">
+	       									<iframe class="embed-responsive-item" src="{{video.url}}" allowfullscreen></iframe>
+	       								</div>
+	       							{% else %}
+	       								<div class="embed-responsive embed-responsive-16by9">
+    										<video controls="true" class="embed-responsive-item">
+    										  <source src="{{video.url}}" type="video/{{video.type}}" />
+    										</video>
+										</div>
+	       							{% endif %}
+
 	       							<div class="carousel-caption">
 										<h3>{{video.title}}</h3>
-
 										
 										<div class="carousel-caption-description">
 											{% if video.description %}
