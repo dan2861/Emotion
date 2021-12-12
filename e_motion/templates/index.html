@@ -136,7 +136,7 @@
 	                		
 	       					<ol class="carousel-indicators">
 
-	       						{% for video in recent_vids %}
+	       						{% for video in my_vids %}
 	       							{% if loop.first %}
 	       								<li data-target="#carousel1" data-slide-to="{{loop.index0}}" class="active"></li>
 	       							{% else %}
@@ -146,7 +146,7 @@
 	       					</ol>
 	       					
 	       					<div class="carousel-inner">
-	       						{% for video in recent_vids %}
+	       						{% for video in my_vids %}
 	       						<div class="carousel-item {{ 'active' if loop.first }}">
 	       							<div class="embed-responsive embed-responsive-16by9">
 	       								<iframe class="embed-responsive-item" src="{{video.url}}" allowfullscreen></iframe>
@@ -204,7 +204,7 @@
 	                		
 	       					<ol class="carousel-indicators">
 
-	       						{% for video in recent_vids %}
+	       						{% for video in all_vids %}
 	       							{% if loop.first %}
 	       								<li data-target="#carousel2" data-slide-to="{{loop.index0}}" class="active"></li>
 	       							{% else %}
@@ -214,7 +214,7 @@
 	       					</ol>
 	       					
 	       					<div class="carousel-inner">
-	       						{% for video in recent_vids %}
+	       						{% for video in all_vids %}
 	       						<div class="carousel-item {{ 'active' if loop.first }}">
 	       							<div class="embed-responsive embed-responsive-16by9">
 	       								<iframe class="embed-responsive-item" src="{{video.url}}" allowfullscreen></iframe>
